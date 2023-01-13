@@ -10,6 +10,7 @@
 #include <assert.h>
 #include <stdlib.h>
 #include <math.h>
+#include <string.h>
 
 static kinc_g4_shader_t vertex_shader;
 static kinc_g4_shader_t fragment_shader;

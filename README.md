@@ -8,6 +8,6 @@ cd kinc_3dexamples
 
 **Build and Run Example**
 ```
-cd 02_triangle
+cd 01_triangle
 ../Kinc/make --run
 ```

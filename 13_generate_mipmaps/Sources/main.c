@@ -50,7 +50,7 @@ static void update(void *data) {
 
 	kinc_g4_render_target_get_pixels(&target, pixels);
 	kinc_image_t image;
-	kinc_image_init_from_bytes(&image, pixels, 1024, 1024, KINC_G4_RENDER_TARGET_FORMAT_32BIT);
+	kinc_image_init_from_bytes(&image, pixels, 1024, 1024, KINC_IMAGE_FORMAT_RGBA32);
 	kinc_g4_texture_t texture;
 	kinc_g4_texture_init_from_image(&texture, &image);
 	kinc_image_destroy(&image);

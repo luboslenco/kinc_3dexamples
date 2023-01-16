@@ -91,7 +91,7 @@ int kickstart(int argc, char **argv) {
 	kinc_g4_pipeline_compile(&pipeline);
 
 	kinc_g4_render_target_init(&target, 1024, 768, KINC_G4_RENDER_TARGET_FORMAT_32BIT, 0, 0);
-	kinc_g4_render_target_init(&target_depth, 1024, 768, KINC_G4_RENDER_TARGET_FORMAT_16BIT_DEPTH, 0, 0);
+	kinc_g4_render_target_init(&target_depth, 1024, 768, KINC_G4_RENDER_TARGET_FORMAT_32BIT, 16, 0);
 	kinc_g4_render_target_set_depth_stencil_from(&target, &target_depth);
 
 	kinc_g4_vertex_buffer_init(&vertices, 3, &structure, KINC_G4_USAGE_STATIC, 0);

@@ -23,7 +23,7 @@ static kinc_g4_constant_location_t mvp_loc;
 static kinc_g4_texture_t texture;
 static kinc_g4_texture_unit_t tex_unit;
 
-#define HEAP_SIZE 1024 * 1024
+#define HEAP_SIZE 1024 * 1024 * 2
 static uint8_t *heap = NULL;
 static size_t heap_top = 0;
 

@@ -45,6 +45,7 @@ static void update(void *data) {
 	kinc_g1_begin();
 	uint8_t *g1image = (uint8_t *)kinc_internal_g1_image;
 	for (int i = 0; i < 1024 * 768 * 4; ++i) {
+		// if (kinc_g4_render_targets_inverted_y()) {}
 		g1image[i] = pixels[i];
 	}
 	kinc_g1_end();

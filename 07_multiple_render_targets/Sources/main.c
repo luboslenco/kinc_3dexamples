@@ -21,7 +21,10 @@ static kinc_g4_render_target_t target1;
 static kinc_g4_render_target_t target2;
 static kinc_g4_render_target_t target3;
 extern uint32_t *kinc_internal_g1_image;
-static uint8_t pixels[512 * 384 * 4];
+static uint8_t pixels0[512 * 384 * 4];
+static uint8_t pixels1[512 * 384 * 4];
+static uint8_t pixels2[512 * 384 * 4];
+static uint8_t pixels3[512 * 384 * 4];
 
 #define HEAP_SIZE 1024 * 1024
 static uint8_t *heap = NULL;
@@ -39,6 +42,7 @@ static void draw_image(uint8_t *pixels, int x, int y) {
 	for (int i = 0; i < 512 * 384; ++i) {
 		int xpos = i % 512 + x;
 		int ypos = i / 512 + y;
+		// if (kinc_g4_render_targets_inverted_y()) {}
 		int j = ypos * 1024 + xpos;
 		g1image[j * 4] = pixels[i * 4];
 		g1image[j * 4 + 1] = pixels[i * 4 + 1];
@@ -57,15 +61,16 @@ static void update(void *data) {
 	kinc_g4_draw_indexed_vertices();
 	kinc_g4_restore_render_target();
 
+	kinc_g4_render_target_get_pixels(&target0, pixels0);
+	kinc_g4_render_target_get_pixels(&target1, pixels1);
+	kinc_g4_render_target_get_pixels(&target2, pixels2);
+	kinc_g4_render_target_get_pixels(&target3, pixels3);
+
 	kinc_g1_begin();
-	kinc_g4_render_target_get_pixels(&target0, pixels);
-	draw_image(pixels, 0, 0);
-	kinc_g4_render_target_get_pixels(&target1, pixels);
-	draw_image(pixels, 512, 0);
-	kinc_g4_render_target_get_pixels(&target2, pixels);
-	draw_image(pixels, 0, 384);
-	kinc_g4_render_target_get_pixels(&target3, pixels);
-	draw_image(pixels, 512, 384);
+	draw_image(pixels0, 0, 0);
+	draw_image(pixels1, 512, 0);
+	draw_image(pixels2, 0, 384);
+	draw_image(pixels3, 512, 384);
 	kinc_g1_end();
 }
 

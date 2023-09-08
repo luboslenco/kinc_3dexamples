@@ -197,14 +197,14 @@ kinc_matrix4x4_t matrix4x4_identity(void) {
 	return m;
 }
 
-void key_down(int key) {
+void key_down(int key, void *data) {
 	if (key == KINC_KEY_UP) move_forward = true;
     else if (key == KINC_KEY_DOWN) move_backward = true;
     else if (key == KINC_KEY_LEFT) strafe_left = true;
     else if (key == KINC_KEY_RIGHT) strafe_right = true;
 }
 
-void key_up(int key) {
+void key_up(int key, void *data) {
 	if (key == KINC_KEY_UP) move_forward = false;
     else if (key == KINC_KEY_DOWN) move_backward = false;
     else if (key == KINC_KEY_LEFT) strafe_left = false;
@@ -311,8 +311,8 @@ static void load_shader(const char *filename, kinc_g4_shader_t *shader, kinc_g4_
 int kickstart(int argc, char **argv) {
 	kinc_init("Example", 1024, 768, NULL, NULL);
 	kinc_set_update_callback(update, NULL);
-	kinc_keyboard_set_key_down_callback(key_down);
-	kinc_keyboard_set_key_up_callback(key_up);
+	kinc_keyboard_set_key_down_callback(key_down, NULL);
+	kinc_keyboard_set_key_up_callback(key_up, NULL);
 	kinc_mouse_set_move_callback(mouse_move, NULL);
 	kinc_mouse_set_press_callback(mouse_down, NULL);
 	kinc_mouse_set_release_callback(mouse_up, NULL);
@@ -361,11 +361,11 @@ int kickstart(int argc, char **argv) {
 
 	kinc_g4_index_buffer_init(&indices, vertex_count, KINC_G4_INDEX_BUFFER_FORMAT_16BIT, KINC_G4_USAGE_STATIC);
 	{
-		uint16_t *id = (uint16_t *)kinc_g4_index_buffer_lock(&indices);
+		uint16_t *id = (uint16_t *)kinc_g4_index_buffer_lock_all(&indices);
 		for (int i = 0; i < vertex_count; ++i) {
 			id[i] = i;
 		}
-		kinc_g4_index_buffer_unlock(&indices);
+		kinc_g4_index_buffer_unlock_all(&indices);
 	}
 
 	kinc_start();

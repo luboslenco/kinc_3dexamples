@@ -32,6 +32,8 @@ static void *allocate(size_t size) {
 }
 
 static void update(void *data) {
+	kinc_g4_begin(0); //
+
 	kinc_g4_render_target_t *targets = { &target };
 	kinc_g4_set_render_targets(&targets, 1);
 	kinc_g4_clear(KINC_G4_CLEAR_COLOR, 0, 0.0f, 0);
@@ -41,6 +43,9 @@ static void update(void *data) {
 	kinc_g4_draw_indexed_vertices();
 	kinc_g4_restore_render_target();
 	kinc_g4_render_target_get_pixels(&target, pixels);
+
+	kinc_g4_end(0); //
+	kinc_g4_swap_buffers(); //
 
 	kinc_g1_begin();
 	uint8_t *g1image = (uint8_t *)kinc_internal_g1_image;
@@ -107,11 +112,11 @@ int kickstart(int argc, char **argv) {
 
 	kinc_g4_index_buffer_init(&indices, 3, KINC_G4_INDEX_BUFFER_FORMAT_16BIT, KINC_G4_USAGE_STATIC);
 	{
-		uint16_t *i = (uint16_t *)kinc_g4_index_buffer_lock(&indices);
+		uint16_t *i = (uint16_t *)kinc_g4_index_buffer_lock_all(&indices);
 		i[0] = 0;
 		i[1] = 1;
 		i[2] = 2;
-		kinc_g4_index_buffer_unlock(&indices);
+		kinc_g4_index_buffer_unlock_all(&indices);
 	}
 
 	kinc_start();

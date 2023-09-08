@@ -280,11 +280,11 @@ int kickstart(int argc, char **argv) {
 
 	kinc_g4_index_buffer_init(&indices, vertex_count, KINC_G4_INDEX_BUFFER_FORMAT_16BIT, KINC_G4_USAGE_STATIC);
 	{
-		uint16_t *id = (uint16_t *)kinc_g4_index_buffer_lock(&indices);
+		uint16_t *id = (uint16_t *)kinc_g4_index_buffer_lock_all(&indices);
 		for (int i = 0; i < vertex_count; ++i) {
 			id[i] = i;
 		}
-		kinc_g4_index_buffer_unlock(&indices);
+		kinc_g4_index_buffer_unlock_all(&indices);
 	}
 
 	kinc_start();

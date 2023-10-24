@@ -86,6 +86,9 @@ int kickstart(int argc, char **argv) {
 	pipeline.fragment_shader = &fragment_shader;
 	pipeline.input_layout[0] = &structure;
 	pipeline.input_layout[1] = NULL;
+	pipeline.color_attachment_count = 1;
+	pipeline.color_attachment[0] = KINC_G4_RENDER_TARGET_FORMAT_32BIT;
+	pipeline.depth_attachment_bits = 16;
 	pipeline.depth_write = true;
 	pipeline.depth_mode = KINC_G4_COMPARE_LESS;
 	kinc_g4_pipeline_compile(&pipeline);
